@@ -5,16 +5,15 @@
 
 #define vectorSize 10
 
-__global__ void sum(const double* in1, const double* in2, double* output){
-    printf("Thread: %d\n", threadIdx.x);
+__global__ void add(const double* in1, const double* in2, double* output){
     output[threadIdx.x] = in1[threadIdx.x] + in2[threadIdx.x];
 }
 
 int main(){
     int rt, dv;
-    cudaError_t c2 = cudaDriverGetVersion(&dv);
     cudaError_t c1 = cudaRuntimeGetVersion(&rt);
-    std::cout<<"CUDA RT:"<<c1<<":"<<rt<<"\nCUDA Dv:"<<c2<<":"<<dv<<std::endl;
+    cudaError_t c2 = cudaDriverGetVersion(&dv);
+    std::cout<<"CUDA RT:"<<cudaGetErrorString(c1)<<":"<<rt<<"\nCUDA Dv:"<<cudaGetErrorString(c2)<<":"<<dv<<std::endl;
     int inSize = vectorSize*sizeof(double);
     std::vector<double> ins, result;
     result.resize(vectorSize);
@@ -26,7 +25,7 @@ int main(){
     cudaMalloc((void**)&dout, inSize);
     cudaMemcpy((void*)din1, (void*)ins.data(), inSize, cudaMemcpyHostToDevice);
     cudaMemcpy((void*)din2, (void*)ins.data(), inSize, cudaMemcpyHostToDevice);
-    sum<<<1, 30>>>(din1, din2, dout);
+    add<<<1, 30>>>(din1, din2, dout);
     cudaError_t cudaerr = cudaDeviceSynchronize();
     if (cudaerr != cudaSuccess)
         printf("kernel launch failed with error \"%s\".\n", cudaGetErrorString(cudaerr));
