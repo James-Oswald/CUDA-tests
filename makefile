@@ -3,3 +3,6 @@ addVectors:
 
 addThrustVectors:
 	nvcc src/addThrustVectors.cu -o bin/addThrustVectors
+
+sumThrustVectors:
+	nvcc src/sumThrustVectors.cu -o bin/sumThrustVectors

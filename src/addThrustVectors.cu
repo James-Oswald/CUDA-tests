@@ -1,6 +1,6 @@
 
 #include<iostream>
-#include <thrust/copy.h>
+#include<thrust/copy.h>
 #include<thrust/device_vector.h>
 
 __global__ void add(const double* in1, const double* in2, double* output){
