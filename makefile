@@ -8,4 +8,4 @@ sumThrustVector:
 	nvcc src/sumThrustVector.cu -o bin/sumThrustVector
 
 sumThrustVector2:
-	nvcc src/sumThrustVector2.cu -o bin/sumThrustVector2 -rdc=true
+	nvcc src/sumThrustVector2.cu -o bin/sumThrustVector2 -rdc=true -g
